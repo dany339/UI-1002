@@ -7,14 +7,14 @@ $(function () {
     // 메뉴에 마우스가 들어왔을 때
     $menu.on("mouseenter", function () {
         // stop() : 현재 진행 중인 애니메이션 즉시 중지
-        $(this).find($submenu).stop().slideDown(duration);
         $(this).addClass("on");
+        $(this).find($submenu).stop().slideDown(duration);
     });
 
     // 메뉴에 마우스가 나갔을 때
     $menu.on("mouseleave", function () {
         // 테스트 주석
-        $submenu.stop().slideUp(duration);
         $menu.removeClass("on");
+        $submenu.stop().slideUp(duration);
     });
 });
