@@ -1,0 +1,79 @@
+@charset 'utf-8';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+.faq-wrap {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.faq-wrap > ul > li {
+    border: 1px solid #000;
+    padding: 30px;
+    margin: 10px 0;
+}
+
+.faq-wrap > ul > li > strong {
+    background: #5f5;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.faq-wrap > ul > li > strong::before {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #000;
+}
+
+.faq-wrap > ul > li > strong::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: solid #000;
+    border-width: 2px 2px 0 0; /* bdw2-2-0-0 */
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(135deg);
+    right: 0;
+    transition: 0.3s;
+}
+
+.answer-wrap {
+    background: #f5f5f5;
+    padding: 30px;
+    margin-top: 20px;
+
+    /* jQuery의 효과 메서드(slidDown)를 위한 준비 */
+    display: none;
+}
+
+/* 활성화 표시 */
+.faq-wrap > ul > li.on > strong {
+    color: #f00;
+}
+
+.faq-wrap > ul > li.on > strong::before {
+    background: #f00;
+}
+
+.faq-wrap > ul > li.on > strong::after {
+    border-color: #f00; /* bdc */
+    transform: translateY(-50%) rotate(315deg);
+}
