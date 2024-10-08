@@ -21,7 +21,7 @@
 
             .popup {
                 position: fixed;
-                top: -40%; /* 화면에서 나가게 */
+                top: 50%;
                 left: 50%;
                 width: 600px;
                 height: 400px;
@@ -30,11 +30,18 @@
                 transform: translate(-50%, -50%);
                 padding: 60px;
                 transition: 1s;
+                opacity: 0;
+
+                /* 마우스 관련 이벤트와 사용자의 선택에 걸리지 않음 */
+                pointer-events: none;
+                user-select: none;
             }
 
             .popup.active {
-                top: 50%;
                 transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+                opacity: 1;
+                pointer-events: initial;
+                user-select: initial; /* 혹은 auto */
             }
 
             .dim {
