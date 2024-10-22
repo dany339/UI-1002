@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Request Animation Frame</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            img {
+                vertical-align: top;
+            }
+
+            body {
+                background: skyblue;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .wrap {
+                width: 100%;
+                border: 1px solid #fff;
+            }
+
+            .cat {
+                width: 245px;
+                height: 184px;
+                background: url(./img/cat.png) no-repeat 0 0;
+                animation: catRunning 0.4s infinite steps(6); /* infinite: 무한 반복 / steps: 사이사이가 transition 없이 즉시 바뀜 */
+            }
+
+            .info {
+                position: absolute;
+                left: 50%;
+                bottom: 50px;
+                transform: translateX(-50%);
+                font-size: 5vw;
+                color: #fff;
+            }
+
+            /* 고양이가 달린다 */
+            @keyframes catRunning {
+                100% {
+                    background-position: -1470px 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- .wrap>.cat+.info -->
+        <div class="wrap">
+            <div class="cat"></div>
+            <div class="info">0</div>
+        </div>
+
+        <script>
+            const cat = document.querySelector(".cat");
+            const info = document.querySelector(".info");
+            const winWidth = window.innerWidth;
+            console.log(winWidth);
+
+            let position = 0;
+            let raf; /* let은 선언만 해도 됨, 값의 변동이 일어날 수 있음 */
+            let isRunning = false;
+
+            function running() {
+                info.textContent = position;
+
+                cat.style.transform = `translateX(${position}px)`; // margin 값으로 밀면 주변 요소가 밀릴수도...
+                position += 3;
+
+                raf = requestAnimationFrame(running);
+
+                // if (position >= winWidth) {
+                //     position = 0;
+                // }
+                if (position >= winWidth) position = 0; /* 실행할 코드가 한 줄이면 {} 생략가능 */
+            }
+
+            running();
+
+            // 화면을 클릭하면 고양이가 멈춘다/달린다
+            window.addEventListener("click", () => {
+                if (!isRunning) {
+                    /* ! <- false가 true로 반대가 됨. */
+                    cancelAnimationFrame(raf);
+                    isRunning = true;
+                    cat.style.animationPlayState = "paused";
+                } else {
+                    raf = requestAnimationFrame(running);
+                    isRunning = false;
+                    cat.style.animationPlayState = "running";
+                }
+            });
+        </script>
+    </body>
+</html>
